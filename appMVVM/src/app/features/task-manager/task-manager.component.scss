@@ -1,0 +1,326 @@
+/* --- PALETA DE COLORES VIBRANTES --- */
+$primary-gradient: linear-gradient(120deg, #8b5cf6 0%, #6366f1 100%);
+/* Morado a Indigo */
+$accent-orange: #f59e0b;
+$success-green: #10b981;
+$bg-body: #f8fafc;
+$text-dark: #1e293b;
+
+.app-container {
+  background-color: $bg-body;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  padding-bottom: 2rem;
+}
+
+/* 1. HERO SECTION */
+.hero-section {
+  background: $primary-gradient;
+  height: 300px;
+  padding: 3rem 1.5rem;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+
+  /* Decoración de fondo (Círculos sutiles) */
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+    border-radius: 50%;
+  }
+}
+
+.hero-content {
+  width: 100%;
+  max-width: 1100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  z-index: 2;
+
+  @media(max-width: 768px) {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero-title {
+    color: white;
+    font-size: 2.2rem;
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+
+  .hero-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 300;
+  }
+}
+
+/* Botón flotante naranja */
+.create-btn {
+  background: $accent-orange !important;
+  border: none !important;
+  padding: 0.8rem 1.8rem !important;
+  font-weight: 600 !important;
+  border-radius: 50px !important;
+  font-size: 1rem !important;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: darken($accent-orange, 5%) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(245, 158, 11, 0.4);
+  }
+}
+
+/* 2. MAIN CONTENT (Overlap) */
+.main-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  margin-top: -120px;
+  /* Sube sobre el header */
+  position: relative;
+  z-index: 10;
+}
+
+/* 3. STATS CARDS CON ESTILO */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.02);
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 30px -5px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .card-label {
+    font-size: 0.9rem;
+    color: #64748b;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .card-value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: $text-dark;
+    margin-top: 0.25rem;
+  }
+
+  .icon-box {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Barra de progreso inferior decorativa */
+  .card-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    width: 100%;
+    opacity: 0.7;
+
+    &.blue {
+      background: #3b82f6;
+    }
+
+    &.green {
+      background: #10b981;
+    }
+
+    &.orange {
+      background: #f59e0b;
+    }
+  }
+}
+
+/* 4. TABLA MODERNA */
+.table-wrapper {
+  background: white;
+  border-radius: 20px;
+  padding: 0.5rem;
+  /* Sombras suaves difusas */
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.01);
+}
+
+:host ::ng-deep {
+  .modern-table {
+    .p-datatable-header {
+      display: none;
+    }
+
+    .p-datatable-thead>tr>th {
+      background: white;
+      color: #94a3b8;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 1.5rem 1rem;
+      border-bottom: 2px solid #f1f5f9;
+    }
+
+    .p-datatable-tbody>tr {
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: #f8fafc;
+        /* Hover suave */
+      }
+
+      td {
+        padding: 1.5rem 1rem;
+        border-bottom: 1px solid #f1f5f9;
+        color: $text-dark;
+      }
+
+      &:last-child td {
+        border-bottom: none;
+      }
+    }
+
+    /* Paginador personalizado */
+    .p-paginator {
+      border: none;
+      padding: 1rem;
+
+      .p-paginator-pages .p-paginator-page.p-highlight {
+        background: #eff6ff;
+        color: #3b82f6;
+        border-radius: 50%;
+      }
+    }
+  }
+}
+
+/* 5. BADGES Y ELEMENTOS DE TABLA */
+.id-badge {
+  background: #f1f5f9;
+  color: #64748b;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.task-title {
+  font-weight: 600;
+  font-size: 1rem;
+  color: $text-dark;
+
+  &.completed-text {
+    text-decoration: line-through;
+    color: #94a3b8;
+  }
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1rem;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+
+  &.status-success {
+    background: #ecfdf5;
+    color: #059669;
+
+    i {
+      font-weight: bold;
+    }
+  }
+
+  &.status-pending {
+    background: #fff7ed;
+    color: #ea580c;
+  }
+}
+
+/* Botones de Acción Circulares */
+.action-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e2e8f0;
+
+  &.edit {
+    color: #3b82f6;
+
+    &:hover {
+      background: #3b82f6;
+      color: white;
+      border-color: #3b82f6;
+    }
+  }
+
+  &.delete {
+    color: #ef4444;
+
+    &:hover {
+      background: #ef4444;
+      color: white;
+      border-color: #ef4444;
+    }
+  }
+}
+
+/* INPUTS EN EL MODAL */
+.custom-input {
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  width: 100%;
+
+  &:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+  }
+}
