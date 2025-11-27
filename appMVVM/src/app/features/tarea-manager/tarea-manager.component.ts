@@ -15,11 +15,11 @@ import { ToolbarModule } from 'primeng/toolbar';
 
 // Servicios PrimeNG
 import { MessageService, ConfirmationService } from 'primeng/api';
-import { TaskService } from 'src/app/service/task.service';
-import { Task } from 'src/app/model/task.model';
+import { TareaService } from 'src/app/service/tarea.service';
+import { Tarea } from 'src/app/model/tareas.model';
 
 @Component({
-  selector: 'app-task-manager',
+  selector: 'app-tarea-manager',
   standalone: true,
   imports: [
     CommonModule,
@@ -35,19 +35,19 @@ import { Task } from 'src/app/model/task.model';
     ToolbarModule,
   ],
   providers: [MessageService, ConfirmationService],
-  templateUrl: './task-manager.component.html',
-  styleUrl: './task-manager.component.scss',
+  templateUrl: './tarea-manager.component.html',
+  styleUrl: './tarea-manager.component.scss',
 })
-export class TaskManagerComponent implements OnInit {
-  private taskService = inject(TaskService);
+export class TareaManagerComponent implements OnInit {
+  private tareaService = inject(TareaService);
   private messageService = inject(MessageService);
   private confirmationService = inject(ConfirmationService);
 
-  tasks: Task[] = [];
+  tareas: Tarea[] = [];
   isLoading: boolean = false; // Estado de carga
 
-  taskDialog: boolean = false;
-  currentTask: Task = { titulo: '', completado: false };
+  tareaDialog: boolean = false;
+  tareaActual: Tarea = { titulo: '', completado: false };
   isEditing: boolean = false;
 
   ngOnInit() {
@@ -57,9 +57,9 @@ export class TaskManagerComponent implements OnInit {
 
   loadTasks() {
     this.isLoading = true;
-    this.taskService.getAll().subscribe({
+    this.tareaService.getAll().subscribe({
       next: (data) => {
-        this.tasks = data;
+        this.tareas = data;
         this.isLoading = false;
       },
       error: (err) => {
@@ -71,19 +71,19 @@ export class TaskManagerComponent implements OnInit {
   }
 
   openNew() {
-    this.currentTask = { titulo: '', completado: false };
+    this.tareaActual = { titulo: '', completado: false };
     this.isEditing = false;
-    this.taskDialog = true;
+    this.tareaDialog = true;
   }
 
-  editTask(task: Task) {
-    this.currentTask = { ...task };
+  editTask(tarea: Tarea) {
+    this.tareaActual = { ...tarea };
     this.isEditing = true;
-    this.taskDialog = true;
+    this.tareaDialog = true;
   }
 
   saveTask() {
-    if (!this.currentTask.titulo.trim()) {
+    if (!this.tareaActual.titulo.trim()) {
       this.messageService.add({
         severity: 'warn',
         summary: 'Cuidado',
@@ -94,9 +94,9 @@ export class TaskManagerComponent implements OnInit {
 
     this.isLoading = true;
     const request =
-      this.isEditing && this.currentTask.id
-        ? this.taskService.update(this.currentTask.id, this.currentTask)
-        : this.taskService.create(this.currentTask);
+      this.isEditing && this.tareaActual.id
+        ? this.tareaService.update(this.tareaActual.id, this.tareaActual)
+        : this.tareaService.create(this.tareaActual);
 
     request.subscribe({
       next: () => {
@@ -106,7 +106,7 @@ export class TaskManagerComponent implements OnInit {
           detail: 'Tarea guardada',
         });
         this.loadTasks();
-        this.taskDialog = false;
+        this.tareaDialog = false;
       },
       error: () => {
         this.messageService.add({
@@ -119,9 +119,9 @@ export class TaskManagerComponent implements OnInit {
     });
   }
 
-  deleteTask(task: Task) {
+  deleteTask(tarea: Tarea) {
     this.confirmationService.confirm({
-      message: '¿Borrar ' + task.titulo + '?',
+      message: '¿Borrar ' + tarea.titulo + '?',
       header: 'Confirmar',
       icon: 'pi pi-exclamation-triangle',
       acceptLabel: 'Sí',
@@ -129,7 +129,7 @@ export class TaskManagerComponent implements OnInit {
       acceptButtonStyleClass: 'p-button-danger p-button-text',
       rejectButtonStyleClass: 'p-button-text',
       accept: () => {
-        this.taskService.delete(task.id!).subscribe(() => {
+        this.tareaService.delete(tarea.id!).subscribe(() => {
           this.messageService.add({
             severity: 'success',
             summary: 'Borrado',
@@ -143,10 +143,10 @@ export class TaskManagerComponent implements OnInit {
 
   // Agrega estos métodos helpers
   getCompletedCount(): number {
-    return this.tasks.filter((t) => t.completado).length;
+    return this.tareas.filter((t) => t.completado).length;
   }
 
   getPendingCount(): number {
-    return this.tasks.filter((t) => !t.completado).length;
+    return this.tareas.filter((t) => !t.completado).length;
   }
 }

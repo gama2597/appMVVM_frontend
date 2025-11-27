@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { TaskManagerComponent } from './features/task-manager/task-manager.component';
+import { TareaManagerComponent } from './features/tarea-manager/tarea-manager.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [TaskManagerComponent],
+  imports: [TareaManagerComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

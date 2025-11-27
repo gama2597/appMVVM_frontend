@@ -20,7 +20,7 @@
         <div class="card-content">
           <div>
             <span class="card-label">Total Tareas</span>
-            <div class="card-value">{{ tasks.length }}</div>
+            <div class="card-value">{{ tareas.length }}</div>
           </div>
           <div class="icon-box bg-blue-100 text-blue-600">
             <i class="pi pi-folder-open text-2xl"></i>
@@ -57,7 +57,7 @@
     </div>
 
     <div class="table-wrapper shadow-3">
-      <p-table [value]="tasks" [loading]="isLoading" [rows]="5" [paginator]="true" [rowsPerPageOptions]="[5, 10, 20]"
+      <p-table [value]="tareas" [loading]="isLoading" [rows]="5" [paginator]="true" [rowsPerPageOptions]="[5, 10, 20]"
         responsiveLayout="scroll" styleClass="modern-table">
 
         <ng-template pTemplate="header">
@@ -69,27 +69,27 @@
           </tr>
         </ng-template>
 
-        <ng-template pTemplate="body" let-task>
+        <ng-template pTemplate="body" let-tarea>
           <tr class="table-row">
-            <td class="pl-4"><span class="id-badge">#{{ task.id }}</span></td>
+            <td class="pl-4"><span class="id-badge">#{{ tarea.id }}</span></td>
             <td>
-              <span class="task-title" [ngClass]="{'completed-text': task.completado}">
-                {{ task.titulo }}
+              <span class="task-title" [ngClass]="{'completed-text': tarea.completado}">
+                {{ tarea.titulo }}
               </span>
             </td>
             <td>
-              <div class="status-badge" [ngClass]="task.completado ? 'status-success' : 'status-pending'">
-                <i class="pi" [ngClass]="task.completado ? 'pi-check' : 'pi-spin pi-spinner'"></i>
-                <span>{{ task.completado ? 'Completada' : 'En Progreso' }}</span>
+              <div class="status-badge" [ngClass]="tarea.completado ? 'status-success' : 'status-pending'">
+                <i class="pi" [ngClass]="tarea.completado ? 'pi-check' : 'pi-spin pi-spinner'"></i>
+                <span>{{ tarea.completado ? 'Completada' : 'En Progreso' }}</span>
               </div>
             </td>
             <td style="text-align: right" class="pr-4">
               <div class="flex justify-content-end gap-2">
-                <button class="action-btn edit shadow-1" (click)="editTask(task)" pTooltip="Editar"
+                <button class="action-btn edit shadow-1" (click)="editTask(tarea)" pTooltip="Editar"
                   tooltipPosition="top">
                   <i class="pi pi-pencil"></i>
                 </button>
-                <button class="action-btn delete shadow-1" (click)="deleteTask(task)" pTooltip="Eliminar"
+                <button class="action-btn delete shadow-1" (click)="deleteTask(tarea)" pTooltip="Eliminar"
                   tooltipPosition="top">
                   <i class="pi pi-trash"></i>
                 </button>
@@ -112,7 +112,7 @@
     </div>
   </div>
 
-  <p-dialog [(visible)]="taskDialog" [style]="{width: '450px'}" [header]="isEditing ? 'Editar Tarea' : 'Nueva Tarea'"
+  <p-dialog [(visible)]="tareaDialog" [style]="{width: '450px'}" [header]="isEditing ? 'Editar Tarea' : 'Nueva Tarea'"
     [modal]="true" styleClass="p-fluid custom-dialog" [draggable]="false" [resizable]="false">
 
     <ng-template pTemplate="content">

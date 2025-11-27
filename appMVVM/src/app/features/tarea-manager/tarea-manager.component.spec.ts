@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TaskManagerComponent } from './task-manager.component';
+import { TaskManagerComponent } from './tarea-manager.component';
 
 describe('TaskManagerComponent', () => {
   let component: TaskManagerComponent;
